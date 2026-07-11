@@ -1,0 +1,11 @@
+name: fishaudio-tts
+version: 0.1.0
+description: "Hermes-native Fish Audio text-to-speech provider."
+author: Xiaoyaner
+license: MIT
+kind: backend
+requires_env:
+  - name: FISH_AUDIO_API_KEY
+    description: "Fish Audio API key"
+    url: "https://fish.audio/app/api-keys"
+    secret: true
