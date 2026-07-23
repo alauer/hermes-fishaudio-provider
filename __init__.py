@@ -1,5 +1,9 @@
 """Hermes Fish Audio TTS plugin."""
-from .provider import FishAudioTTSProvider
+
+try:
+    from .provider import FishAudioTTSProvider
+except ImportError:  # pragma: no cover - plain-module import fallback
+    from provider import FishAudioTTSProvider
 
 __all__ = ["FishAudioTTSProvider", "register"]
 

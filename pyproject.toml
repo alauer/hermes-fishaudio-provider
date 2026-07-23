@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hermes-fishaudio-tts"
-version = "0.1.0"
+version = "0.2.0"
 description = "Hermes-native Fish Audio TTS provider plugin"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -20,6 +20,13 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
 ]
 dependencies = []
+
+[project.entry-points."hermes_agent.plugins"]
+fishaudio-tts = "hermes_fishaudio_tts"
+
+[tool.setuptools]
+py-modules = ["provider"]
+packages = ["hermes_fishaudio_tts"]
 
 [project.urls]
 Homepage = "https://github.com/xiaoyaner0201/hermes-fishaudio-tts"

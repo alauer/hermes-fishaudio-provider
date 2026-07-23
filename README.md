@@ -7,18 +7,18 @@ A Hermes-native [Fish Audio](https://fish.audio/) text-to-speech provider. It us
 
 ## Features
 
-- Native `PluginContext.register_tts_provider()` integration
+- Native `PluginContext.register_tts_provider()` integration for directory and pip entry-point plugins
 - Fish Audio voice cloning via `reference_id`
 - `s2.1-pro-free`, `s2.1-pro`, and `s2-pro`
 - MP3, WAV, PCM, and Opus output
 - Configurable temperature, top-p, sample rate, bitrate, latency, speed, and volume
 - Buffered synthesis plus a streaming iterator for compatible future/live voice pipelines
 - Zero runtime dependencies beyond Hermes and the Python standard library
-- Tested against Hermes PluginManager and TTS dispatch contracts
+- Tested against Hermes PluginManager, TTS dispatch contracts, and standalone entry-point install discovery
 
 ## Requirements
 
-- Hermes Agent with the native TTS provider plugin API (Hermes v0.18 or a compatible recent build)
+- Hermes Agent with the native TTS provider plugin API (Hermes v0.19 or a compatible recent build)
 - Python 3.10+
 - A Fish Audio API key
 
@@ -55,6 +55,13 @@ tts:
 ```
 
 Restart the Hermes CLI/gateway or start a new session after installing or changing the provider.
+
+## Compatibility matrix
+
+| Plugin version | Hermes baseline | Install/discovery path | Status |
+|---|---|---|---|
+| `0.2.x` | Hermes v0.19 / v2026.7.20 TTS API | `hermes plugins install`, copied plugin directory, or pip entry point `hermes_agent.plugins` | Supported |
+| `0.1.x` | Hermes v0.18 native TTS provider API | Copied plugin directory | Legacy; upgrade recommended for Hermes v0.19 standalone install smoke coverage |
 
 ## Configuration
 
@@ -105,11 +112,13 @@ PYTHONPATH=/path/to/hermes-agent /path/to/hermes-agent/.venv/bin/python -m pytes
 
 A real API smoke test is intentionally not run in public CI because it requires a credential and incurs an external request. Maintainers run it before releases.
 
+For local Hermes v0.19 compatibility verification, run both the unit suite and an isolated install smoke with a temporary `HERMES_HOME`. Do not change the live `tts.provider` when doing release validation.
+
 ## Security
 
 - Never commit `FISH_AUDIO_API_KEY` or generated private voice samples.
 - The plugin blocks tool-call extras from overriding authorization headers or the API endpoint.
-- API response errors are bounded and never include the request credential.
+- API response errors are bounded and redact the request credential and configured Fish reference/voice ID before surfacing.
 
 Please report vulnerabilities privately through GitHub's security advisory interface.
 
