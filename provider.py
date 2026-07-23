@@ -91,7 +91,7 @@ class FishAudioTTSProvider(TTSProvider):
             with urllib.request.urlopen(request, timeout=self._timeout()) as response:
                 audio = response.read()
         except urllib.error.HTTPError as exc:
-            detail = exc.read().decode("utf-8", errors="replace")[:500]
+            detail = self._redact_sensitive(exc.read().decode("utf-8", errors="replace")[:500])
             raise RuntimeError(f"Fish Audio TTS HTTP {exc.code}: {detail}") from exc
         except urllib.error.URLError as exc:
             raise RuntimeError(f"Fish Audio TTS connection failed: {exc.reason}") from exc
@@ -122,7 +122,7 @@ class FishAudioTTSProvider(TTSProvider):
                         break
                     yield chunk
         except urllib.error.HTTPError as exc:
-            detail = exc.read().decode("utf-8", errors="replace")[:500]
+            detail = self._redact_sensitive(exc.read().decode("utf-8", errors="replace")[:500])
             raise RuntimeError(f"Fish Audio TTS HTTP {exc.code}: {detail}") from exc
         except urllib.error.URLError as exc:
             raise RuntimeError(f"Fish Audio TTS connection failed: {exc.reason}") from exc
@@ -226,6 +226,19 @@ class FishAudioTTSProvider(TTSProvider):
         except (TypeError, ValueError):
             return DEFAULT_TIMEOUT_SECONDS
         return value if value > 0 else DEFAULT_TIMEOUT_SECONDS
+
+    def _redact_sensitive(self, text: str) -> str:
+        redacted = text
+        sensitive = [
+            self._api_key(),
+            self._config_value("reference_id", "voice", "voice_id"),
+        ]
+        for value in sensitive:
+            if value:
+                token = str(value).strip()
+                if token:
+                    redacted = redacted.replace(token, "[redacted]")
+        return redacted
 
     @staticmethod
     def _positive_int(value: Any, default: int) -> int:

@@ -77,11 +77,14 @@ def test_missing_key_fails_without_network(tmp_path: Path, plugin_module):
 
 def test_http_error_is_redacted(tmp_path: Path, plugin_module):
     provider = plugin_module.FishAudioTTSProvider()
-    error = urllib.error.HTTPError("https://api.fish.audio/v1/tts", 401, "Unauthorized", {}, io.BytesIO(b"bad key"))
-    with patch("hermes_cli.config.get_env_value", return_value="fish-secret"),          patch("tools.tts_tool._load_tts_config", return_value={}),          patch("urllib.request.urlopen", side_effect=error):
+    error = urllib.error.HTTPError("https://api.fish.audio/v1/tts", 401, "Unauthorized", {}, io.BytesIO(b"bad key voice-secret"))
+    config = {"fishaudio": {"reference_id": "voice-secret"}}
+    with patch("hermes_cli.config.get_env_value", return_value="fish-secret"),          patch("tools.tts_tool._load_tts_config", return_value=config),          patch("urllib.request.urlopen", side_effect=error):
         with pytest.raises(RuntimeError, match="HTTP 401: bad key") as exc:
             provider.synthesize("hello", str(tmp_path / "sample.mp3"))
     assert "fish-secret" not in str(exc.value)
+    assert "voice-secret" not in str(exc.value)
+    assert "[redacted]" in str(exc.value)
 
 
 def test_transport_extras_cannot_override_endpoint_or_auth(plugin_module):
