@@ -60,7 +60,7 @@ Restart the Hermes CLI/gateway or start a new session after installing or changi
 
 | Plugin version | Hermes baseline | Install/discovery path | Status |
 |---|---|---|---|
-| `0.2.x` | Hermes v0.19 / v2026.7.20 TTS API | `hermes plugins install`, copied plugin directory, or pip entry point `hermes_agent.plugins` | Supported |
+| `0.2.x` | Hermes v0.19.1 / v2026.7.30 TTS API (also compatible with v0.19.0) | `hermes plugins install`, copied plugin directory, or pip entry point `hermes_agent.plugins` | Supported and release-smoke-tested |
 | `0.1.x` | Hermes v0.18 native TTS provider API | Copied plugin directory | Legacy; upgrade recommended for Hermes v0.19 standalone install smoke coverage |
 
 ## Configuration
