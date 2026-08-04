@@ -36,6 +36,14 @@ def test_v020_plugin_manager_dispatch_and_voice_contract(tmp_path: Path, monkeyp
             "synthesize",
             lambda text, output_path, **kwargs: output_path,
         )
+        # PluginManager above already completed discovery and registered the
+        # exact provider under test. Dispatch normally calls the process-global
+        # discovery helper as a safety net; in this isolated test that would
+        # create a second manager and replace the patched provider instance.
+        monkeypatch.setattr(
+            "hermes_cli.plugins._ensure_plugins_discovered",
+            lambda *args, **kwargs: None,
+        )
         output_path = str(tmp_path / "fishaudio-v020.mp3")
         assert tts_tool._dispatch_to_plugin_provider(
             text="Hermes v0.20 compatibility",
