@@ -60,7 +60,8 @@ Restart the Hermes CLI/gateway or start a new session after installing or changi
 
 | Plugin version | Hermes baseline | Install/discovery path | Status |
 |---|---|---|---|
-| `0.2.0` | Hermes v0.20.0 TTS API (also compatible with v0.19.x) | `hermes plugins install`, copied plugin directory, or pip entry point `hermes_agent.plugins` | Supported; native registration, dispatch, voice-compatible conversion, and real MP3 synthesis verified |
+| `0.2.1` | Hermes v0.20.0 / `v2026.8.3` TTS API (also compatible with v0.19.x) | `hermes plugins install`, copied plugin directory, or pip entry point `hermes_agent.plugins` | Supported; native registration, dispatch, voice-compatible conversion, and real MP3 synthesis verified |
+| `0.2.0` | Hermes v0.19.1 / `v2026.7.30` TTS API | `hermes plugins install`, copied plugin directory, or pip entry point `hermes_agent.plugins` | Supported maintenance baseline |
 | `0.1.x` | Hermes v0.18 native TTS provider API | Copied plugin directory | Legacy; upgrade recommended for Hermes v0.19 standalone install smoke coverage |
 
 ## Configuration
