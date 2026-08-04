@@ -19,11 +19,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Clone Hermes Agent v0.20
-        run: git clone --depth=1 --branch v2026.8.3 https://github.com/NousResearch/hermes-agent.git /tmp/hermes-agent
+      - name: Checkout Hermes Agent v0.20
+        uses: actions/checkout@v4
+        with:
+          repository: NousResearch/hermes-agent
+          ref: v2026.8.3
+          path: hermes-agent
       - name: Install test dependencies
         run: python -m pip install pytest pyyaml
       - name: Test
         env:
-          PYTHONPATH: /tmp/hermes-agent
+          PYTHONPATH: ${{ github.workspace }}/hermes-agent
         run: python -m pytest --import-mode=importlib --rootdir=tests tests
