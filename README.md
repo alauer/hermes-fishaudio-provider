@@ -18,7 +18,7 @@ A Hermes-native [Fish Audio](https://fish.audio/) text-to-speech provider. It us
 
 ## Requirements
 
-- Hermes Agent with the native TTS provider plugin API (Hermes v0.19 or a compatible recent build)
+- Hermes Agent with the native TTS provider plugin API (Hermes v0.20; v0.19 remains compatible)
 - Python 3.10+
 - A Fish Audio API key
 
@@ -60,7 +60,7 @@ Restart the Hermes CLI/gateway or start a new session after installing or changi
 
 | Plugin version | Hermes baseline | Install/discovery path | Status |
 |---|---|---|---|
-| `0.2.x` | Hermes v0.19.1 / v2026.7.30 TTS API (also compatible with v0.19.0) | `hermes plugins install`, copied plugin directory, or pip entry point `hermes_agent.plugins` | Supported and release-smoke-tested |
+| `0.2.0` | Hermes v0.20.0 TTS API (also compatible with v0.19.x) | `hermes plugins install`, copied plugin directory, or pip entry point `hermes_agent.plugins` | Supported; native registration, dispatch, voice-compatible conversion, and real MP3 synthesis verified |
 | `0.1.x` | Hermes v0.18 native TTS provider API | Copied plugin directory | Legacy; upgrade recommended for Hermes v0.19 standalone install smoke coverage |
 
 ## Configuration
@@ -112,7 +112,7 @@ PYTHONPATH=/path/to/hermes-agent /path/to/hermes-agent/.venv/bin/python -m pytes
 
 A real API smoke test is intentionally not run in public CI because it requires a credential and incurs an external request. Maintainers run it before releases.
 
-For local Hermes v0.19 compatibility verification, run both the unit suite and an isolated install smoke with a temporary `HERMES_HOME`. Do not change the live `tts.provider` when doing release validation.
+For local Hermes v0.20 compatibility verification, run both the plugin suite and the host TTS registration/registry/dispatch tests against the same Hermes checkout. Use an isolated temporary `HERMES_HOME` for install or synthesis smoke tests; do not change the live `tts.provider` during release validation.
 
 ## Security
 

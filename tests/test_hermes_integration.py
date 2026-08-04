@@ -4,9 +4,10 @@ import shutil
 from pathlib import Path
 
 
-def test_plugin_manager_loads_native_provider(tmp_path: Path, monkeypatch):
+def test_v020_plugin_manager_dispatch_and_voice_contract(tmp_path: Path, monkeypatch):
     from agent import tts_registry
     from hermes_cli.plugins import PluginManager
+    from tools import tts_tool
 
     source = Path(__file__).resolve().parents[1]
     home = tmp_path / "hermes-home"
@@ -30,5 +31,18 @@ def test_plugin_manager_loads_native_provider(tmp_path: Path, monkeypatch):
         provider = tts_registry.get_provider("fishaudio")
         assert provider is not None
         assert provider.name == "fishaudio"
+        monkeypatch.setattr(
+            provider,
+            "synthesize",
+            lambda text, output_path, **kwargs: output_path,
+        )
+        output_path = str(tmp_path / "fishaudio-v020.mp3")
+        assert tts_tool._dispatch_to_plugin_provider(
+            text="Hermes v0.20 compatibility",
+            output_path=output_path,
+            provider="fishaudio",
+            tts_config={},
+        ) == output_path
+        assert tts_tool._plugin_provider_is_voice_compatible("fishaudio") is True
     finally:
         tts_registry._reset_for_tests()

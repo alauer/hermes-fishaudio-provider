@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Verify plugin `0.2.0` against Hermes v0.20.0 native registration, dispatch, voice-compatible conversion, and real MP3 synthesis contracts.
+- Add a focused Hermes v0.20 regression test for Fish Audio plugin discovery, dispatch, and the voice-compatible flag.
+
 ## 0.2.0 - 2026-07-31
 
 - Mark Hermes v0.19 / v2026.7.20 as the supported TTS API baseline.
