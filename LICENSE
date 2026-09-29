@@ -1,6 +1,13 @@
 MIT License
 
-Copyright (c) 2026 Xiaoyaner
+Copyright (c) 2026 alauer (Palace-maintained fork)
+
+Original work Copyright (c) 2026 Xiaoyaner (https://github.com/xiaoyaner-home/hermes-fishaudio-tts).
+Adapted ideas and code Copyright (c) Ryvexam (https://github.com/Ryvexam/hermes-fishaudio-plugin).
+
+This software includes work that was originally part of the projects listed
+above, each of which is MIT-licensed. The full license text that follows
+applies to this combined work.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
