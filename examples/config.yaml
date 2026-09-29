@@ -1,6 +1,6 @@
 plugins:
   enabled:
-    - fishaudio-tts
+    - fishaudio-provider
 
 tts:
   provider: fishaudio
@@ -13,3 +13,13 @@ tts:
     temperature: 0.7
     top_p: 0.7
     timeout: 120
+    max_retries: 2
+    # allow_insecure_local: false   # set true ONLY for a local HTTP proxy
+
+    # Optional voice aliases and presets.
+    voices:
+      primary: your_fish_reference_id
+    presets:
+      primary:
+        voice: primary
+        model: s2.1-pro-free

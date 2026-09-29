@@ -1,7 +1,10 @@
 name: fishaudio-tts
-version: 0.2.1
-description: "Hermes-native Fish Audio text-to-speech provider."
-author: Xiaoyaner
+# The manifest ``name`` stays ``fishaudio-tts`` for backward compatibility with
+# existing installs (``plugins.enabled: [fishaudio-tts]``). The project URL
+# (`alauer/hermes-fishaudio-provider`) lives in pyproject.toml + README badges.
+version: 0.3.0
+description: "Palace-maintained Hermes-native Fish Audio TTS provider plugin (voice cloning, presets, bounded retry, hardened security). Adapts features from xiaoyaner-home/hermes-fishaudio-tts and Ryvexam/hermes-fishaudio-plugin."
+author: alauer (Palace maintainer; see NOTICE.md for upstream attribution)
 license: MIT
 kind: backend
 requires_env:
