@@ -3,16 +3,20 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "hermes-fishaudio-tts"
-version = "0.2.1"
-description = "Hermes-native Fish Audio TTS provider plugin"
+name = "hermes-fishaudio-provider"
+version = "0.3.0"
+description = "Palace-maintained Hermes-native Fish Audio TTS provider plugin (voice cloning, presets, bounded retry, hardened security)."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
-authors = [{name = "Xiaoyaner"}]
+authors = [
+  {name = "alauer (Palace maintainer)"},
+  {name = "Xiaoyaner (original xiaoyaner-home/hermes-fishaudio-tts spine, MIT)"},
+  {name = "Ryvexam (selective Ryvexam/hermes-fishaudio-plugin features, MIT)"},
+]
 keywords = ["hermes-agent", "fish-audio", "tts", "voice-cloning"]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 4 - Beta",
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
@@ -22,16 +26,24 @@ classifiers = [
 dependencies = []
 
 [project.entry-points."hermes_agent.plugins"]
-fishaudio-tts = "hermes_fishaudio_tts"
+# Canonical Palace-maintained entry point.
+fishaudio-provider = "provider:register"
+
+# Backwards-compatible alias for installs that still use the xiaoyaner-era
+# ``fishaudio-tts`` plugin id. Both names load the same canonical module.
+fishaudio-tts = "provider:register"
 
 [tool.setuptools]
 py-modules = ["provider"]
-packages = ["hermes_fishaudio_tts"]
+# ``packages`` is intentionally empty — the canonical layout is root
+# ``__init__.py`` + ``provider.py``, which is what ``hermes plugins install``
+# and the directory-copy plugin path both expect. setuptools installs the
+# top-level modules verbatim via ``py-modules``.
 
 [project.urls]
-Homepage = "https://github.com/xiaoyaner-home/hermes-fishaudio-tts"
-Repository = "https://github.com/xiaoyaner-home/hermes-fishaudio-tts"
-Issues = "https://github.com/xiaoyaner-home/hermes-fishaudio-tts/issues"
+Homepage = "https://github.com/alauer/hermes-fishaudio-provider"
+Repository = "https://github.com/alauer/hermes-fishaudio-provider"
+Issues = "https://github.com/alauer/hermes-fishaudio-provider/issues"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
