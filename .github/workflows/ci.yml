@@ -1,5 +1,6 @@
 name: CI
 
+# Bootstrap note: keep this workflow on the default branch so fork CI is registered.
 on:
   push:
   pull_request:
